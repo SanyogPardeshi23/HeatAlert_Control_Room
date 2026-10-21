@@ -32,11 +32,14 @@ from reports import (AnomalyReport, DailyHeatwaveReport, DecadeTrendReport, Heat
 
 APP_NAME = "HeatAlert Control Room"
 
-STUDENT = {
-    "Name": "Sanyog Pardeshi",
-    "Roll No.": "16010425081",
+TEAM = [
+    ("Sanyog Pardeshi", "16010425081"),
+    ("Harshad Saha", "16010425092"),
+    ("Meher Rabadi", "16010425089"),
+]
+
+PROJECT_INFO = {
     "Branch": "Information Technology",
-    "Division / Batch": "A / A3",
     "Course": "Object Oriented Programming Lab (Python)",
     "Institute": "K. J. Somaiya School of Engineering, Somaiya Vidyavihar University",
     "Academic year": "2026-27",
@@ -1472,7 +1475,8 @@ class AboutScreen(Screen):
 
         student = Card(self.body, app, "Submitted by")
         student.grid(row=1, column=0, sticky="nsew", padx=(0, 10), pady=(10, 0))
-        for key, value in STUDENT.items():
+        rows = [(f"Roll {roll}", name) for name, roll in TEAM] + list(PROJECT_INFO.items())
+        for key, value in rows:
             row = tk.Frame(student.inner, bg=theme.SURFACE)
             row.pack(fill="x", pady=2)
             tk.Label(row, text=key, width=15, anchor="w", bg=theme.SURFACE, fg=theme.INK_SECONDARY,
