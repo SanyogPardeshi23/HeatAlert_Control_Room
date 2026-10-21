@@ -6,7 +6,7 @@ A Tkinter desktop app built on real IMD Pune data: 125 years of monthly All-Indi
 plus 11 years of daily gridded maximum temperature for every 1-degree cell over India.
 Each of the eight lab experiments is one working part of the app.
 
-Submitted by — Information Technology, K. J. Somaiya School of Engineering, 2026-27:
+Submitted by — Information Technology, Division A, Batch A3, K. J. Somaiya School of Engineering, 2026-27:
 
 | Name | Roll No. |
 |---|---|

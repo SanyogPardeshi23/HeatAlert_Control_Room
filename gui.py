@@ -40,6 +40,7 @@ TEAM = [
 
 PROJECT_INFO = {
     "Branch": "Information Technology",
+    "Division / Batch": "A / A3",
     "Course": "Object Oriented Programming Lab (Python)",
     "Institute": "K. J. Somaiya School of Engineering, Somaiya Vidyavihar University",
     "Academic year": "2026-27",
