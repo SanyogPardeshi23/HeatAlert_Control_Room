@@ -6,7 +6,7 @@ Screen       parent class for every screen (build / refresh / on_show)
 ...Screen    one subclass per screen
 
 All database work and every widget update happens on the main thread.
-The Live Monitor's worker threads only talk to this file through a queue.
+The City Stream worker threads only talk to this file through a queue.
 """
 
 import calendar
@@ -30,7 +30,7 @@ from readings import ReadingLog, parse_temperature, parse_year
 from reports import (AnomalyReport, DailyHeatwaveReport, DecadeTrendReport, HeatSeasonReport, HottestMonthsReport,
                      YearSummaryReport)
 
-APP_NAME = "HeatAlert Control Room"
+APP_NAME = "HeatWave Control Room"
 
 TEAM = [
     ("Sanyog Pardeshi", "16010425081"),
@@ -49,9 +49,9 @@ PROJECT_INFO = {
 EXPERIMENT_MAP = [
     ("1", "Classes, objects, constructors", "Each reading is a WeatherRecord", "models.py"),
     ("2", "Constructors and lists", "Data Manager: add, delete, stats", "readings.py"),
-    ("3", "String handling, inheritance", "Advisories: cleans raw feed text", "advisories.py"),
+    ("3", "String handling, inheritance", "HeatWave Advisory: cleans raw feed text", "advisories.py"),
     ("4", "Abstract class, polymorphism", "Reports: one call, five report types", "reports.py"),
-    ("5", "Exceptions, modules, threads", "Live Monitor: 3 city threads", "monitor.py"),
+    ("5", "Exceptions, modules, threads", "City Stream: 3 city threads", "monitor.py"),
     ("6", "Collections, functional prog.", "Analytics: map, filter, reduce, lambda", "analytics.py"),
     ("7", "Tkinter Canvas drawing", "Heatwave map, charts, logo", "charts.py"),
     ("8", "SQLite database", "Database Console + all storage", "database.py"),
@@ -763,7 +763,7 @@ class DataManagerScreen(Screen):
 # ======================================================================
 
 class AdvisoryScreen(Screen):
-    title = "Advisories"
+    title = "HeatWave Advisory"
     subtitle = "Build a heat bulletin from a monthly record, a city's daily grid reading, or a messy raw feed line"
 
     EXAMPLES = ["  aug 2023 | 31.87C | normal 31.01 C  ",
@@ -1033,8 +1033,8 @@ class ReportsScreen(Screen):
 # ======================================================================
 
 class MonitorScreen(Screen):
-    title = "Live Monitor"
-    subtitle = "Three threads stream real daily readings for three cities at the same time. Bad readings raise exceptions that are caught and logged."
+    title = "City Stream Replay"
+    subtitle = "Three threads replay recorded daily readings for three cities at the same time (a replay of past data, not a live feed). Bad readings raise exceptions that are caught and logged."
 
     PERIODS = {"Heat season (Mar-Jun)": (3, 6), "Peak (Apr-May)": (4, 5), "Whole year": (1, 12)}
     COLOURS = (theme.SERIES_1, theme.SERIES_2, theme.SERIES_3)
@@ -1493,7 +1493,7 @@ class AboutScreen(Screen):
                      "1,500 monthly records (125 years x 12 months) of max, min and mean temperature. "
                      "Checked: mean = (max + min) / 2 within 0.001 C in every cell of the three IMD tables.\n\n"
                      "Plus IMD's daily 1-degree gridded maximum temperature (binary .GRD), 2015-2025: "
-                     "11 years x 365 days x 961 grid cells, used for the Heatwave Map, Live Monitor and daily bulletins.")
+                     "11 years x 365 days x 961 grid cells, used for the Heatwave Map, City Stream and daily bulletins.")
                        ).pack(fill="x")
 
         mapping = Card(self.body, app, "Where each experiment lives", padding=8)
@@ -1513,9 +1513,9 @@ class App(tk.Tk):
         ("dashboard", "Dashboard", DashboardScreen),
         ("map", "Heatwave Map", HeatwaveMapScreen),
         ("data", "Data Manager", DataManagerScreen),
-        ("advisory", "Advisories", AdvisoryScreen),
+        ("advisory", "HeatWave Advisory", AdvisoryScreen),
         ("reports", "Reports", ReportsScreen),
-        ("monitor", "Live Monitor", MonitorScreen),
+        ("monitor", "City Stream", MonitorScreen),
         ("analytics", "Analytics", AnalyticsScreen),
         ("database", "Database", DatabaseScreen),
         ("about", "About", AboutScreen),
@@ -1605,7 +1605,7 @@ class App(tk.Tk):
         draw_logo(logo, 20, 20, 11)
         names = tk.Frame(brand, bg=theme.SIDEBAR)
         names.pack(side="left", padx=8)
-        tk.Label(names, text="HeatAlert", bg=theme.SIDEBAR, fg="#ffffff", font=self.fonts["brand"], anchor="w").pack(fill="x")
+        tk.Label(names, text="HeatWave", bg=theme.SIDEBAR, fg="#ffffff", font=self.fonts["brand"], anchor="w").pack(fill="x")
         tk.Label(names, text="Control Room", bg=theme.SIDEBAR, fg=theme.SIDEBAR_TEXT, font=self.fonts["small"],
                  anchor="w").pack(fill="x")
 

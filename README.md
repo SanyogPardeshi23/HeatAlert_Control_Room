@@ -37,7 +37,7 @@ python main.py
 | 2 | Constructors and lists | Data Manager: add, edit, delete readings; per-month list statistics | `readings.py` |
 | 3 | String handling, inheritance | Advisories: cleans a messy raw feed line; `HeatwaveAdvisory` inherits `WeatherBulletin` | `advisories.py` |
 | 4 | Abstract classes, polymorphism | Reports: abstract `ClimateReport`, five subclasses, one `report.generate()` call | `reports.py` |
-| 5 | Exceptions, modules, threads | Live Monitor: 3 city threads streaming real daily data, custom exceptions, queue to the GUI | `monitor.py` |
+| 5 | Exceptions, modules, threads | City Stream Replay: 3 city threads streaming real daily data, custom exceptions, queue to the GUI | `monitor.py` |
 | 6 | Collections, functional programming | Analytics: tuple, list, set, dict, `lambda`, `map`, `filter`, `reduce` | `analytics.py` |
 | 7 | Tkinter Canvas | Heatwave Map of India (961 grid cells), all charts, the logo — drawn by hand | `charts.py`, `gui.py` |
 | 8 | SQLite | Four tables, all storage, and the SQL console (18 ready-made queries) | `database.py` |
@@ -93,10 +93,10 @@ These are All-India *monthly averages*. IMD's real heatwave rule (4.5 °C above 
 **Is all the data real?**
 Every temperature is IMD's. Two things are simulated on purpose, and both are kept separate from the data:
 
-- the sensor faults in the Live Monitor, switched with "Simulate sensor faults". The monitor streams real daily grid readings, and a real 99.9 "no data" value would raise the same exception, but the ten city cells happen to have no gaps in 2015–2025;
+- the sensor faults in the City Stream Replay, switched with "Simulate sensor faults". The monitor streams real daily grid readings, and a real 99.9 "no data" value would raise the same exception, but the ten city cells happen to have no gaps in 2015–2025;
 - the messy text in the Advisories examples, because the experiment is about cleaning text.
 
-**Why does the Live Monitor use a queue?**
+**Why does the City Stream Replay use a queue?**
 Tkinter is not thread-safe. If a worker thread changed a widget directly, the window could freeze or crash at random. The three workers only `put()` messages on a `queue.Queue`. The screen checks the queue every 100 ms on the main thread and does all the drawing itself.
 
 **Why four tables in the database?**
